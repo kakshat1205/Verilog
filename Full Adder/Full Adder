@@ -1,1 +1,86 @@
 #FA
+
+`timescale 1ns / 1ps
+
+module Full_Adder(A,B,Cin,S,Cout
+    );
+	 
+	 input wire A,B,Cin;
+	 output reg S,Cout;
+	 
+	 always @(A or B or Cin)
+	 begin 
+	 S = A^B^Cin;
+	 Cout = A&B | (A^B)&Cin;
+	 end
+endmodule
+
+
+Test_bench
+`timescale 1ns / 1ps
+
+
+
+module Test_FA;
+
+	// Inputs
+	reg A;
+	reg B;
+	reg Cin;
+
+	// Outputs
+	wire S;
+	wire Cout;
+
+	// Instantiate the Unit Under Test (UUT)
+	Full_Adder uut (
+		.A(A), 
+		.B(B), 
+		.Cin(Cin), 
+		.S(S), 
+		.Cout(Cout)
+	);
+
+	initial begin
+		// Initialize Inputs
+		A = 0;
+		B = 0;
+		Cin = 0;
+
+		#100;
+		
+		A = 1;
+		B = 1;
+		Cin = 0;
+
+		#100;
+		
+		A = 1;
+		B = 0;
+		Cin = 1;
+
+		#100;
+		
+		A = 0;
+		B = 1;
+		Cin = 1;
+
+		#100;
+		
+		A = 1;
+		B = 1;
+		Cin = 1;
+
+		#100;
+		
+		A = 0;
+		B = 1;
+		Cin = 0;
+
+		#100;
+        
+
+	end
+      
+endmodule
+
