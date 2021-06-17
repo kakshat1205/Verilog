@@ -1,1 +1,147 @@
 #Adders & Subtractors
+
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    14:49:16 06/15/2021 
+// Design Name: 
+// Module Name:    AdderSub 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+module AdderSub(
+input [3:0]A,B,
+input control,
+output [4:0] S,
+output overflow
+    );
+integer i;
+wire [3:0]Ba,c;
+
+assign c = control ? 4'b1111 : 4'b0000;
+assign Ba = c ^ B;
+FA FA1(A[0],Ba[0],control,cout1,S[0]);
+FA FA2(A[1],Ba[1],cout1,cout2,S[1]);
+FA FA3(A[2],Ba[2],cout2,cout3,S[2]);
+FA FA4(A[3],Ba[3],cout3,S[4],S[3]);
+assign overflow = S[4] ^ cout3;
+
+endmodule
+
+
+
+
+
+
+TESTBENCH
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   15:02:20 06/15/2021
+// Design Name:   AdderSub
+// Module Name:   C:/Users/kaksh/OneDrive/Desktop/Verilog/Lesgo/practice/TB_AS.v
+// Project Name:  practice
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: AdderSub
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module TB_AS;
+
+	// Inputs
+	reg [3:0] A;
+	reg [3:0] B;
+	reg control;
+
+	// Outputs
+	wire [4:0] S;
+	wire overflow;
+
+	// Instantiate the Unit Under Test (UUT)
+	AdderSub uut (
+		.A(A), 
+		.B(B), 
+		.control(control), 
+		.S(S), 
+		.overflow(overflow)
+	);
+
+	initial begin
+		// Initialize Inputs
+		A = 0;
+		B = 0;
+		control = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		  
+		  
+		  A = 3;
+		B = 3;
+		control = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		A = 3;
+		B = 3;
+		control = 1;
+
+#100;
+		A = 4;
+		B = 3;
+		control = 1;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		
+		A = 3;
+		B = 4;
+		control = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		
+		A = 1;
+		B = 3;
+		control = 1;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		
+		A = 1;
+		B = 3;
+		control = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		// Add stimulus here
+
+	end
+      
+endmodule
+
