@@ -1,8 +1,8 @@
 # Basic info on how to design FSM in Verilog
 I will basically focus on Moore machine due to following reasons :
-Output is syncronised with the clock
-Output will change on clock edge irrespective of change in input(Important to avoid setup timing voilation)
-So in case of Mealy machines as ouput can be changed at any time because of Input it is more prone to setup voilations(Hence glitches or wrong inputs of the FSM)
+- Output is syncronised with the clock
+- Output will change on clock edge irrespective of change in input(Important to avoid setup timing voilation)
+- So in case of Mealy machines as ouput can be changed at any time because of Input it is more prone to setup voilations(Hence glitches or wrong inputs of the FSM)
 
 
 ## FSM to be designed
@@ -20,3 +20,5 @@ introduce bugs and create cryptic FSMs that cannot be easily understood by human
 one of the large pros of Verilog: human readability. Furthermore, the Synthesis tools that ‘compile’ an
 FSM, written in Verilog, perform state minimization automatically. Only perform state minimization
 manually to the extent that the function of the FSM remains clear.
+
+
